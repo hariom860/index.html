@@ -9,7 +9,7 @@ const compScorePara = document.querySelector("#comp-score");
 
 const genCompChoice = () => {
   const options = ["rock", "paper", "scissors"];
-  const randIdx = Math.floor(Math.random() * 3);
+  const randIdx = Math.floor(Math.random() * options.length);
   return options[randIdx];
 };
 
@@ -39,6 +39,7 @@ const playGame = (userChoice) => {
   if (userChoice === compChoice) {
     //Draw Game
     drawGame();
+    return;
   } else {
     let userWin = true;
     if (userChoice === "rock") {
