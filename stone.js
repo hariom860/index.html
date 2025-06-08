@@ -5,57 +5,55 @@ const choices = document.querySelectorAll(".choice");
 const msg = document.querySelector("#msg");
 
 const userScorePara = document.querySelector("#user-score");
-const compScorePara = document.querySelector("#comp-score");
+const compScorePara = document.querySelector("#computer-score");
 
 const genCompChoice = () => {
-  const options = ["rock", "paper", "scissors"];
-  const randIdx = Math.floor(Math.random() * options.length);
-  return options[randIdx];
+    const options = ["rock", "paper", "scissors"];
+    return options[Math.floor(Math.random() * options.length)];
 };
 
 const drawGame = () => {
-  msg.innerText = "Game was Draw. Play again.";
-  msg.style.backgroundColor = "#081b31";
+    msg.innerText = "Game Draw! Try again.";
+    msg.classList.add("bg-primary", "text-white");
 };
 
 const showWinner = (userWin, userChoice, compChoice) => {
-  if (userWin) {
-    userScore++;
-    userScorePara.innerText = userScore;
-    msg.innerText = `You win! Your ${userChoice} beats ${compChoice}`;
-    msg.style.backgroundColor = "green";
-  } else {
-    compScore++;
-    compScorePara.innerText = compScore;
-    msg.innerText = `You lost. ${compChoice} beats your ${userChoice}`;
-    msg.style.backgroundColor = "red";
-  }
+    if (userWin) {
+        userScore++;
+        userScorePara.innerText = userScore;
+        msg.innerText = `You Win! ${userChoice} beats ${compChoice}`;
+        msg.classList.add("bg-success", "text-white");
+    } else {
+        compScore++;
+        compScorePara.innerText = compScore;
+        msg.innerText = `You Lost! ${compChoice} beats ${userChoice}`;
+        msg.classList.add("bg-danger", "text-white");
+    }
 };
+
 const playGame = (userChoice) => {
-  const compChoice = genCompChoice();
+    const compChoice = genCompChoice();
 
-  if (userChoice === compChoice) {
-    drawGame();
-    return;
-  }
+    if (userChoice === compChoice) {
+        drawGame();
+        return;
+    }
 
-  let userWin = false; // Default is "loss" unless proven otherwise
+    const winConditions = {
+        rock: "scissors",
+        paper: "rock",
+        scissors: "paper"
+    };
 
-  if (
-    (userChoice === "rock" && compChoice === "scissors") ||
-    (userChoice === "paper" && compChoice === "rock") ||
-    (userChoice === "scissors" && compChoice === "paper")
-  ) {
-    userWin = true;
-  }
-
-  showWinner(userWin, userChoice, compChoice);
+    const userWin = winConditions[userChoice] === compChoice;
+    showWinner(userWin, userChoice, compChoice);
 };
 
+choices.forEach(choice => {
+    choice.addEventListener("click", () => {
+        const userChoice = choice.getAttribute("id");
 
-choices.forEach((choice) => {
-  choice.addEventListener("click", () => {
-    const userChoice = choice.getAttribute("id");
-    playGame(userChoice);
-  });
+        msg.classList.remove("bg-primary", "bg-success", "bg-danger");
+        playGame(userChoice);
+    });
 });
