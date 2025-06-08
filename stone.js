@@ -14,19 +14,22 @@ const genCompChoice = () => {
 
 const drawGame = () => {
     msg.innerText = "Game Draw! Try again.";
+    msg.classList.remove("bg-success", "bg-danger");
     msg.classList.add("bg-primary", "text-white");
 };
 
 const showWinner = (userWin, userChoice, compChoice) => {
     if (userWin) {
-        userScore++;
+        userScore++; // Increment user score
         userScorePara.innerText = userScore;
-        msg.innerText = `You Win! ${userChoice} beats ${compChoice}`;
+        msg.innerText = `✅ You Win! ${userChoice} beats ${compChoice}`;
+        msg.classList.remove("bg-primary", "bg-danger");
         msg.classList.add("bg-success", "text-white");
     } else {
-        compScore++;
+        compScore++; // Increment computer score
         compScorePara.innerText = compScore;
-        msg.innerText = `You Lost! ${compChoice} beats ${userChoice}`;
+        msg.innerText = `❌ You Lost! ${compChoice} beats ${userChoice}`;
+        msg.classList.remove("bg-primary", "bg-success");
         msg.classList.add("bg-danger", "text-white");
     }
 };
@@ -49,6 +52,7 @@ const playGame = (userChoice) => {
     showWinner(userWin, userChoice, compChoice);
 };
 
+// Adding event listeners to each choice
 choices.forEach(choice => {
     choice.addEventListener("click", () => {
         const userChoice = choice.getAttribute("id");
