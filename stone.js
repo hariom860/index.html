@@ -31,30 +31,27 @@ const showWinner = (userWin, userChoice, compChoice) => {
     msg.style.backgroundColor = "red";
   }
 };
-
 const playGame = (userChoice) => {
-  //Generate computer choice
   const compChoice = genCompChoice();
 
   if (userChoice === compChoice) {
-    //Draw Game
     drawGame();
     return;
-  } else {
-    let userWin = true;
-    if (userChoice === "rock") {
-      //scissors, paper
-      userWin = compChoice === "paper" ? false : true;
-    } else if (userChoice === "paper") {
-      //rock, scissors
-      userWin = compChoice === "scissors" ? false : true;
-    } else {
-      //rock, paper
-      userWin = compChoice === "rock" ? false : true;
-    }
-    showWinner(userWin, userChoice, compChoice);
   }
+
+  let userWin = false; // Default is "loss" unless proven otherwise
+
+  if (
+    (userChoice === "rock" && compChoice === "scissors") ||
+    (userChoice === "paper" && compChoice === "rock") ||
+    (userChoice === "scissors" && compChoice === "paper")
+  ) {
+    userWin = true;
+  }
+
+  showWinner(userWin, userChoice, compChoice);
 };
+
 
 choices.forEach((choice) => {
   choice.addEventListener("click", () => {
