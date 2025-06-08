@@ -1,6 +1,24 @@
-*{
-    margin: 0;
-    padding: 0;
+body {
+    background-image: url("C:/Users/om705/OneDrive/Pictures/HD-wallpaper-hanuman-in-black-smoke-background-hanuman.jpg");
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat; 
+    background-attachment: fixed; 
+    color: white;
+}
+
+/* Additional styles */
+h1 {
+    background-color: rgba(8, 27, 49, 0.8); 
+    color: white;
+    height: 5rem;
+    text-align: center;
+    line-height: 5rem;
+}
+
+.choice {
+    height: 200px;
+    width: 200px;
 }
 h1 {
     background-color: #081b31;
